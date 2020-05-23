@@ -17,22 +17,27 @@ import java.io.IOException;
 public class LaunchController {
 
     @FXML
-    private TextField usernameTextfield;
+    private TextField username1Textfield;
+
+    @FXML
+    private TextField username2Textfield;
 
     @FXML
     private Label errorLabel;
 
     public void startAction(ActionEvent actionEvent) throws IOException {
-        if (usernameTextfield.getText().isEmpty()) {
-            errorLabel.setText("* Username is empty!");
+        if (username1Textfield.getText().isEmpty()) {
+            errorLabel.setText("* Username1 is empty!");
+        } else if(username2Textfield.getText().isEmpty()) {
+            errorLabel.setText("* Username2 is empty!");
         } else {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/game.fxml"));
             Parent root = fxmlLoader.load();
-            fxmlLoader.<GameController>getController().initdata(usernameTextfield.getText());
+            fxmlLoader.<GameController>getController().initdata(username1Textfield.getText(),username2Textfield.getText());
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-            log.info("Username is set to {}, loading game scene.", usernameTextfield.getText());
+            log.info("Username is set to {} and {}, loading game scene.", username1Textfield.getText(), username2Textfield.getText());
         }
 
     }

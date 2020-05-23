@@ -1,5 +1,7 @@
 package controller;
 
+import battleship.Ship;
+import battleship.Square;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,60 +24,77 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
 public class GameController {
 
-    private String userName;
-    private int stepCount;
-    private List<Image> squareImages;
-    private Instant beginGame;
-
+    private String userName1;
+    private String userName2;
     @FXML
-    private Label usernameLabel;
+    private Label usernameLabel1;
+    @FXML
+    private Label usernameLabel2;
 
     @FXML
     private GridPane ownGrid;
 
-    @FXML
-    private GridPane enemyGrid;
+    private List<Ship> ownShips;
+    private HashMap<Square, Image> squares;
 
     @FXML
-    private Label stepLabel;
+    public void initialize() {
+        ownShips = new ArrayList<Ship>();
+        squares = new HashMap<Square, Image>();
 
-    @FXML
-    private Label solvedLabel;
+        squares.put(Square.SQUARE0, new Image(this.getClass().getResource("/img/square0.png").toExternalForm()));
+        squares.put(Square.SQUARE1, new Image(this.getClass().getResource("/img/square1.png").toExternalForm()));
+        squares.put(Square.SQUARE2, new Image(this.getClass().getResource("/img/square2.png").toExternalForm()));
+        squares.put(Square.SQUARE3, new Image(this.getClass().getResource("/img/square3.png").toExternalForm()));
+    }
 
-    @FXML
-    private Button doneButton;
+    public void initdata(String userName1, String userName2) {
+        this.userName1 = userName1;
+        this.userName2 = userName2;
+        usernameLabel1.setText(this.userName1);
+        usernameLabel2.setText(this.userName2);
+    }
 
-    public void initdata(String userName) {
-        this.userName = userName;
-        usernameLabel.setText("Current user: " + this.userName);
+    private void drawOwnShips() {
+        for (Ship s : ownShips) {
+            int startX = s.getX() * 10 + s.getY();
+            for (int x = 0; x < s.getSize(); x++) {
+                int index = s.getDirection() == 1 ? startX + x : startX + (10 * x);
+                if (index >= 100)
+                    continue;
+
+                ImageView view = (ImageView) ownGrid.getChildren().get(index);
+                view.setImage(squares.get(Square.SQUARE2));
+            }
+        }
     }
 
     public void squareClickOwn(MouseEvent mouseEvent) {
 
+        int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
+        int clickedRow = GridPane.getRowIndex((Node)mouseEvent.getSource());
+        System.out.println("own grid, (" + clickedRow + "," + clickedColumn + ")");
 
-        int clickedColumn = ownGrid.getColumnIndex((Node)mouseEvent.getSource());
-        int clickedRow = ownGrid.getRowIndex((Node)mouseEvent.getSource());
-        System.out.println("own grid, (" + clickedColumn + "," + clickedRow + ")");
+        Ship ship = new Ship(3, 2,clickedRow, clickedColumn );
+        ownShips.add(ship);
 
-
-
+        drawOwnShips();
     }
 
     public void squareClickEnemy(MouseEvent mouseEvent) {
 
+        int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
+        int clickedRow = GridPane.getRowIndex((Node)mouseEvent.getSource());
 
-        int clickedColumn = enemyGrid.getColumnIndex((Node)mouseEvent.getSource());
-        int clickedRow = enemyGrid.getRowIndex((Node)mouseEvent.getSource());
-
-        System.out.println("enemy grid, (" + clickedColumn + "," + clickedRow + ")");
-
-
+        System.out.println("enemy grid, (" + clickedRow + "," + clickedColumn + ")");
 
     }
 }
