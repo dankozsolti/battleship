@@ -41,7 +41,6 @@ public class GameController {
     @FXML
     private ToggleButton horizontal;
 
-
     private List<Ship> ownShips;
     private List<Ship> enemyShips;
     private HashMap<Square, Image> squares;
@@ -113,20 +112,37 @@ public class GameController {
         }
         return true;
     }
-
-
+    int stage = 0;
     public void squareClickOwn(MouseEvent mouseEvent) {
 
         int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
         int clickedRow = GridPane.getRowIndex((Node)mouseEvent.getSource());
         System.out.println("own grid, (" + clickedRow + "," + clickedColumn + ")");
+        int size = 0;
 
-        Ship ship = new Ship(3, horizontal.isDisable() ? 1 : 2,clickedRow, clickedColumn);
+        if (stage == 0) {
+            size = 4;
+        } else if (stage == 1 || stage == 2) {
+            size = 3;
+        } else if (stage >= 3 && stage <= 5) {
+            size = 2;
+        } else if (stage >= 6 && stage <=9) {
+            size = 1;
+        } else{
+            System.out.println("Can't place any more!");
+            return;
+        }
+
+        Ship ship = new Ship(size, horizontal.isDisable() ? 1 : 2, clickedRow, clickedColumn);
+        if (!isEmptySpace(ownShips, ship)) {
+            log.warn("Ship in line!!");
+            return;
+        }
         ownShips.add(ship);
 
         drawOwnShips();
+        stage++;
     }
-
     public void squareClickEnemy(MouseEvent mouseEvent) {
 
         int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
@@ -134,7 +150,25 @@ public class GameController {
 
         System.out.println("enemy grid, (" + clickedRow + "," + clickedColumn + ")");
 
-        int size = 3;
+        int size = 0;
+
+        if (stage < 10){
+            log.warn("It's not your turn yet!");
+            return;
+        }
+        if (stage == 10) {
+            size = 4;
+        } else if (stage == 11 || stage == 12) {
+            size = 3;
+        } else if (stage >= 13 && stage <= 15) {
+            size = 2;
+        } else if (stage >= 16 && stage <=19) {
+            size = 1;
+        } else{
+            System.out.println("Can't place any more!");
+            return;
+        }
+
         Ship ship = new Ship(size, horizontal.isDisable() ? 1 : 2, clickedRow, clickedColumn);
         if (!isEmptySpace(enemyShips, ship)) {
             log.warn("Ship in line!!");
@@ -143,6 +177,7 @@ public class GameController {
         enemyShips.add(ship);
 
         drawEnemyShips();
+        stage++;
     }
 
     public void squareHoverOwn(){
