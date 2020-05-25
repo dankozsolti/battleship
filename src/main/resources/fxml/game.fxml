@@ -48,7 +48,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickOwn" onMouseMoved="#squareHoverOwn" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickOwn" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickOwn" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickOwn" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="0" />
             <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickOwn" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="0" />
@@ -293,7 +293,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickEnemy" onMouseMoved="#squareHoverEnemy" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickEnemy" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickEnemy" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickEnemy" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="0" />
             <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickEnemy" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="0" />

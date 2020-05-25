@@ -41,8 +41,6 @@ public class GameController {
     @FXML
     private Button endPlacementButton;
 
-
-
     private List<Ship> ownShips;
     private List<Ship> enemyShips;
     private HashMap<Square, Image> squares;
@@ -210,15 +208,6 @@ public class GameController {
         if (stage == 20){
             endPlacementButton.setDisable(false);
         }
-
-    }
-
-    public void squareHoverOwn(){
-        System.out.println("Hovered own");
-    }
-
-    public void squareHoverEnemy(){
-        System.out.println("Hovered enemy");
     }
 
     public void horizontalRelease() {
