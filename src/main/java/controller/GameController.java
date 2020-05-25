@@ -4,17 +4,14 @@ import battleship.Ship;
 import battleship.Square;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import lombok.extern.slf4j.Slf4j;
-import org.w3c.dom.css.Rect;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +37,11 @@ public class GameController {
 
     @FXML
     private ToggleButton horizontal;
+
+    @FXML
+    private Button endPlacementButton;
+
+
 
     private List<Ship> ownShips;
     private List<Ship> enemyShips;
@@ -113,6 +115,7 @@ public class GameController {
         return true;
     }
     int stage = 0;
+
     public void squareClickOwn(MouseEvent mouseEvent) {
 
         int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
@@ -142,7 +145,32 @@ public class GameController {
 
         drawOwnShips();
         stage++;
+        System.out.println("Stage: " + stage);
+
+        if (stage == 10){
+            endPlacementButton.setDisable(false);
+        }
     }
+
+
+
+    public void endPlacementTurn() {
+        System.out.println("Stage: " + stage);
+        if(stage == 10) {
+            ownGrid.setVisible(false);
+            stage++;
+        }else if (stage == 20) {
+            enemyGrid.setVisible(false);
+            ownGrid.setVisible(true);
+            stage++;
+            endPlacementButton.setVisible(false);
+            horizontal.setVisible(false);
+            vertical.setVisible(false);
+        }
+
+        endPlacementButton.setDisable(true);
+    }
+
     public void squareClickEnemy(MouseEvent mouseEvent) {
 
         int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
@@ -152,19 +180,19 @@ public class GameController {
 
         int size = 0;
 
-        if (stage < 10){
+        if (stage < 11){
             log.warn("It's not your turn yet!");
             return;
         }
-        if (stage == 10) {
+        if (stage == 11) {
             size = 4;
-        } else if (stage == 11 || stage == 12) {
+        } else if (stage == 12 || stage == 13) {
             size = 3;
-        } else if (stage >= 13 && stage <= 15) {
+        } else if (stage >= 14 && stage <= 16) {
             size = 2;
-        } else if (stage >= 16 && stage <=19) {
+        } else if (stage >= 17 && stage <=20) {
             size = 1;
-        } else{
+        } else {
             System.out.println("Can't place any more!");
             return;
         }
@@ -178,6 +206,11 @@ public class GameController {
 
         drawEnemyShips();
         stage++;
+        System.out.println("Stage: " + stage);
+        if (stage == 20){
+            endPlacementButton.setDisable(false);
+        }
+
     }
 
     public void squareHoverOwn(){
