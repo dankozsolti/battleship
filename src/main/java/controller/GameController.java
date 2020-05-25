@@ -114,6 +114,24 @@ public class GameController {
     }
     int stage = 0;
 
+    public void endPlacementTurn() {
+        if(stage == 10) {
+            ownGrid.setVisible(false);
+            stage++;
+            System.out.println("Stage: " + stage);
+        }else if (stage == 21) {
+            enemyGrid.setVisible(false);
+            ownGrid.setVisible(true);
+            stage++;
+            endPlacementButton.setVisible(false);
+            horizontal.setVisible(false);
+            vertical.setVisible(false);
+            System.out.println("Stage:" + stage);
+        }
+
+        endPlacementButton.setDisable(true);
+    }
+
     public void squareClickOwn(MouseEvent mouseEvent) {
 
         int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
@@ -140,7 +158,6 @@ public class GameController {
             return;
         }
         ownShips.add(ship);
-
         drawOwnShips();
         stage++;
         System.out.println("Stage: " + stage);
@@ -150,24 +167,6 @@ public class GameController {
         }
     }
 
-
-
-    public void endPlacementTurn() {
-        System.out.println("Stage: " + stage);
-        if(stage == 10) {
-            ownGrid.setVisible(false);
-            stage++;
-        }else if (stage == 20) {
-            enemyGrid.setVisible(false);
-            ownGrid.setVisible(true);
-            stage++;
-            endPlacementButton.setVisible(false);
-            horizontal.setVisible(false);
-            vertical.setVisible(false);
-        }
-
-        endPlacementButton.setDisable(true);
-    }
 
     public void squareClickEnemy(MouseEvent mouseEvent) {
 
@@ -201,11 +200,10 @@ public class GameController {
             return;
         }
         enemyShips.add(ship);
-
         drawEnemyShips();
         stage++;
         System.out.println("Stage: " + stage);
-        if (stage == 20){
+        if (stage == 21){
             endPlacementButton.setDisable(false);
         }
     }
