@@ -67,6 +67,7 @@ public class GameController {
         squares.put(Square.SQUARE1, new Image(this.getClass().getResource("/img/square1.png").toExternalForm()));
         squares.put(Square.SQUARE2, new Image(this.getClass().getResource("/img/square2.png").toExternalForm()));
         squares.put(Square.SQUARE3, new Image(this.getClass().getResource("/img/square3.png").toExternalForm()));
+        squares.put(Square.SQUARE4, new Image(this.getClass().getResource("/img/square4.png").toExternalForm()));
 
         vertical.setDisable(true);
     }
@@ -214,14 +215,16 @@ public class GameController {
         }
     }
 
+
+
     public void squareClickEnemy(MouseEvent mouseEvent) {
 
         int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
         int clickedRow = GridPane.getRowIndex((Node)mouseEvent.getSource());
 
-        //log.info("enemy grid, (" + clickedRow + "," + clickedColumn + ")");
-
         if(stage>=22 && !prepPhase){
+
+
             Ship fire = new Ship(1, 1, clickedRow, clickedColumn);
             int index = clickedRow * 10 + clickedColumn;
             if (hit.contains(index) || miss.contains(index)) {
@@ -236,6 +239,37 @@ public class GameController {
                 ImageView view = (ImageView) enemyGrid.getChildren().get(index);
                 view.setImage(squares.get(Square.SQUARE3));
 
+                for (Ship s : enemyShips) {
+                    if (s.inShip(fire,false)) {
+                        boolean allDestroyed = true;
+                        int shipindex = s.getX() * 10 + s.getY();
+                        for (int i = 0; i < s.getSize(); i++) {
+                            int thisIndex = shipindex;
+                            if (s.getDirection() == 1) {
+                                thisIndex += i;
+                            } else {
+                                thisIndex += i * 10;
+                            }
+                            if (!hit.contains(thisIndex)) {
+                                allDestroyed = false;
+                                break;
+                            }
+                        }
+                        if (allDestroyed) {
+                            for (int i = 0; i < s.getSize(); i++) {
+                                int thisIndex = shipindex;
+                                if (s.getDirection() == 1) {
+                                    thisIndex += i;
+                                } else {
+                                    thisIndex += i * 10;
+                                }
+                                ImageView view2 = (ImageView) enemyGrid.getChildren().get(thisIndex);
+                                view2.setImage(squares.get(Square.SQUARE4));
+                            }
+                        }
+                    }
+                }
+
             } else{
                 log.info("Miss.");
                 miss.add(index);
@@ -243,10 +277,18 @@ public class GameController {
                 ImageView view = (ImageView) enemyGrid.getChildren().get(index);
                 view.setImage(squares.get(Square.SQUARE1));
             }
+
+            int maxS = 0;
+            for (Ship s : enemyShips) {
+                maxS += s.getSize();
+            }
+            if (maxS == hit.size()) {
+                log.info("You sank the ship!");
+            }
+            return;
         }
 
         int size = 0;
-
         if (prepPhase) {
             if (stage < 11) {
                 log.warn("It's not your turn yet!");
@@ -266,7 +308,9 @@ public class GameController {
             }
         }
 
+        //log.info("enemy grid, (" + clickedRow + "," + clickedColumn + ")");
         Ship ship = new Ship(size, horizontal.isDisable() ? 1 : 2, clickedRow, clickedColumn);
+
         if (prepPhase) {
             if (!isEmptySpace(enemyShips, ship, true)) {
                 log.warn("Ship in line!!");

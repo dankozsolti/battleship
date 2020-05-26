@@ -5,4 +5,5 @@ public enum Square {
     SQUARE1,
     SQUARE2,
     SQUARE3,
+    SQUARE4,
 }
