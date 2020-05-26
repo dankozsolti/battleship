@@ -12,17 +12,17 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameController">
    <children>
-      <Label fx:id="usernameLabel1" alignment="CENTER" layoutX="109.0" layoutY="53.0" prefHeight="32.0" prefWidth="256.0">
+      <Label fx:id="usernameLabel1" alignment="CENTER" layoutX="108.0" layoutY="50.0" prefHeight="32.0" prefWidth="256.0">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="usernameLabel2" alignment="CENTER" layoutX="465.0" layoutY="53.0" prefHeight="32.0" prefWidth="256.0">
+      <Label fx:id="usernameLabel2" alignment="CENTER" layoutX="458.0" layoutY="50.0" prefHeight="32.0" prefWidth="256.0">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <GridPane fx:id="ownGrid" gridLinesVisible="true" layoutX="125.0" layoutY="126.0" prefHeight="250.0" prefWidth="250.0">
+      <GridPane fx:id="ownGrid" gridLinesVisible="true" layoutX="111.0" layoutY="123.0" prefHeight="250.0" prefWidth="250.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -150,7 +150,6 @@
             <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickOwn" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="9" />
          </children>
       </GridPane>
-      <!--<Button fx:id="doneButton" layoutX="309.0" layoutY="427.0" mnemonicParsing="false" onAction="#finishGame" prefHeight="52.0" prefWidth="83.0" text="Give up" />-->
       <Label fx:id="solvedLabel" layoutX="424.0" layoutY="630.0" prefHeight="42.0" prefWidth="184.0" textFill="#002466">
          <font>
             <Font size="18.0" />
@@ -166,108 +165,107 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <!--<Button fx:id="resetButton" layoutX="192.0" layoutY="427.0" mnemonicParsing="false" onAction="#resetGame" prefHeight="52.0" prefWidth="83.0" text="Reset" />-->
-      <Label alignment="CENTER" layoutX="100.0" layoutY="126.0" prefHeight="25.0" prefWidth="25.0" text="1">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="123.0" prefHeight="25.0" prefWidth="25.0" text="1">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="151.0" prefHeight="25.0" prefWidth="25.0" text="2">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="148.0" prefHeight="25.0" prefWidth="25.0" text="2">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="176.0" prefHeight="25.0" prefWidth="25.0" text="3">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="173.0" prefHeight="25.0" prefWidth="25.0" text="3">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="201.0" prefHeight="25.0" prefWidth="25.0" text="4">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="198.0" prefHeight="25.0" prefWidth="25.0" text="4">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="226.0" prefHeight="25.0" prefWidth="25.0" text="5">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="223.0" prefHeight="25.0" prefWidth="25.0" text="5">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="251.0" prefHeight="25.0" prefWidth="25.0" text="6">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="248.0" prefHeight="25.0" prefWidth="25.0" text="6">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="276.0" prefHeight="25.0" prefWidth="25.0" text="7">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="273.0" prefHeight="25.0" prefWidth="25.0" text="7">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="301.0" prefHeight="25.0" prefWidth="25.0" text="8">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="298.0" prefHeight="25.0" prefWidth="25.0" text="8">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="326.0" prefHeight="25.0" prefWidth="25.0" text="9">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="323.0" prefHeight="25.0" prefWidth="25.0" text="9">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="100.0" layoutY="351.0" prefHeight="25.0" prefWidth="25.0" text="10">
+      <Label alignment="CENTER" layoutX="86.0" layoutY="348.0" prefHeight="25.0" prefWidth="25.0" text="10">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="125.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="A">
+      <Label alignment="CENTER" layoutX="111.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="A">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="150.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="B">
+      <Label alignment="CENTER" layoutX="136.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="B">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="175.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="C">
+      <Label alignment="CENTER" layoutX="161.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="C">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="200.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="D">
+      <Label alignment="CENTER" layoutX="186.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="D">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="225.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="E">
+      <Label alignment="CENTER" layoutX="211.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="E">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="250.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="F">
+      <Label alignment="CENTER" layoutX="236.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="F">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="273.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="G">
+      <Label alignment="CENTER" layoutX="259.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="G">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="298.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="H">
+      <Label alignment="CENTER" layoutX="284.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="H">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="323.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="I">
+      <Label alignment="CENTER" layoutX="309.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="I">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="348.0" layoutY="101.0" prefHeight="25.0" prefWidth="25.0" text="J">
+      <Label alignment="CENTER" layoutX="334.0" layoutY="98.0" prefHeight="25.0" prefWidth="25.0" text="J">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <GridPane fx:id="enemyGrid" gridLinesVisible="true" layoutX="437.0" layoutY="127.0" prefHeight="250.0" prefWidth="250.0">
+      <GridPane fx:id="enemyGrid" gridLinesVisible="true" layoutX="461.0" layoutY="124.0" prefHeight="250.0" prefWidth="250.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -395,102 +393,102 @@
             <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#squareClickEnemy" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="9" GridPane.rowIndex="9" />
          </children>
       </GridPane>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="127.0" prefHeight="25.0" prefWidth="25.0" text="1">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="124.0" prefHeight="25.0" prefWidth="25.0" text="1">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="152.0" prefHeight="25.0" prefWidth="25.0" text="2">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="149.0" prefHeight="25.0" prefWidth="25.0" text="2">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="177.0" prefHeight="25.0" prefWidth="25.0" text="3">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="174.0" prefHeight="25.0" prefWidth="25.0" text="3">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="202.0" prefHeight="25.0" prefWidth="25.0" text="4">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="199.0" prefHeight="25.0" prefWidth="25.0" text="4">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="227.0" prefHeight="25.0" prefWidth="25.0" text="5">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="224.0" prefHeight="25.0" prefWidth="25.0" text="5">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="252.0" prefHeight="25.0" prefWidth="25.0" text="6">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="249.0" prefHeight="25.0" prefWidth="25.0" text="6">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="277.0" prefHeight="25.0" prefWidth="25.0" text="7">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="274.0" prefHeight="25.0" prefWidth="25.0" text="7">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="302.0" prefHeight="25.0" prefWidth="25.0" text="8">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="299.0" prefHeight="25.0" prefWidth="25.0" text="8">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="327.0" prefHeight="25.0" prefWidth="25.0" text="9">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="324.0" prefHeight="25.0" prefWidth="25.0" text="9">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="412.0" layoutY="352.0" prefHeight="25.0" prefWidth="25.0" text="10">
+      <Label alignment="CENTER" layoutX="436.0" layoutY="349.0" prefHeight="25.0" prefWidth="25.0" text="10">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="437.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="A">
+      <Label alignment="CENTER" layoutX="461.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="A">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="462.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="B">
+      <Label alignment="CENTER" layoutX="486.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="B">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="487.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="C">
+      <Label alignment="CENTER" layoutX="511.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="C">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="512.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="D">
+      <Label alignment="CENTER" layoutX="536.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="D">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="537.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="E">
+      <Label alignment="CENTER" layoutX="561.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="E">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="562.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="F">
+      <Label alignment="CENTER" layoutX="586.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="F">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="585.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="G">
+      <Label alignment="CENTER" layoutX="609.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="G">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="610.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="H">
+      <Label alignment="CENTER" layoutX="634.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="H">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="635.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="I">
+      <Label alignment="CENTER" layoutX="659.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="I">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="660.0" layoutY="102.0" prefHeight="25.0" prefWidth="25.0" text="J">
+      <Label alignment="CENTER" layoutX="684.0" layoutY="99.0" prefHeight="25.0" prefWidth="25.0" text="J">
          <font>
             <Font size="15.0" />
          </font>
@@ -498,5 +496,15 @@
       <ToggleButton id="vertical" fx:id="vertical" layoutX="54.0" layoutY="395.0" mnemonicParsing="false" onMouseReleased="#verticalRelease" selected="true" text="Vertical" />
       <ToggleButton id="horizontal" fx:id="horizontal" layoutX="113.0" layoutY="395.0" mnemonicParsing="false" onMouseReleased="#horizontalRelease" text="Horizontal" />
       <Button fx:id="endPlacementButton" disable="true" layoutX="276.0" layoutY="408.0" mnemonicParsing="false" onAction="#endPlacementTurn" text="End Placement" />
+      <Button fx:id="startOwnButton" layoutX="174.0" layoutY="386.0" mnemonicParsing="false" onMouseReleased="#startOwn" prefHeight="32.0" prefWidth="153.0" text="Start" visible="false">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="startEnemyButton" layoutX="510.0" layoutY="383.0" mnemonicParsing="false" onMouseReleased="#startEnemy" prefHeight="32.0" prefWidth="153.0" text="Start" visible="false">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

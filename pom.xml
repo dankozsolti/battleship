@@ -7,6 +7,11 @@
 <artifactId>battleship</artifactId>
 <packaging>jar</packaging>
 <version>1.0</version>
+    <scm>
+        <connection>scm:git:git@github.com:dankozsolti/battleship.git</connection>
+        <developerConnection>scm:git:git@github.com:dankozsolti/battleship.git</developerConnection>
+        <url>https://github.com/dankozsolti/battleship</url>
+    </scm>
 
     <description>A battleship game.</description>
     <developers>
@@ -14,6 +19,7 @@
             <id>Dpara</id>
             <name>Zsolt Dankó</name>
             <email>bookoodude@gmail.com</email>
+
         </developer>
     </developers>
 
