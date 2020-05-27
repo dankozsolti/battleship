@@ -495,13 +495,23 @@
       </Label>
       <ToggleButton id="vertical" fx:id="vertical" layoutX="54.0" layoutY="395.0" mnemonicParsing="false" onMouseReleased="#verticalRelease" selected="true" text="Vertical" />
       <ToggleButton id="horizontal" fx:id="horizontal" layoutX="113.0" layoutY="395.0" mnemonicParsing="false" onMouseReleased="#horizontalRelease" text="Horizontal" />
-      <Button fx:id="endPlacementButton" disable="true" layoutX="276.0" layoutY="408.0" mnemonicParsing="false" onAction="#endPlacementTurn" text="End Placement" />
+      <Button fx:id="endPlacementButton" disable="true" layoutX="353.0" layoutY="418.0" mnemonicParsing="false" onAction="#endPlacementTurn" text="End Placement" />
       <Button fx:id="startOwnButton" layoutX="174.0" layoutY="386.0" mnemonicParsing="false" onMouseReleased="#startOwn" prefHeight="32.0" prefWidth="153.0" text="Start" visible="false">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
       <Button fx:id="startEnemyButton" layoutX="510.0" layoutY="383.0" mnemonicParsing="false" onMouseReleased="#startEnemy" prefHeight="32.0" prefWidth="153.0" text="Start" visible="false">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="endOwnButton" layoutX="174.0" layoutY="386.0" mnemonicParsing="false" onMouseReleased="#endOwn" prefHeight="32.0" prefWidth="153.0" text="End" visible="false">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="endEnemyButton" layoutX="510.0" layoutY="383.0" mnemonicParsing="false" onMouseReleased="#endEnemy" prefHeight="32.0" prefWidth="153.0" text="End" visible="false">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

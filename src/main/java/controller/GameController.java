@@ -48,6 +48,12 @@ public class GameController {
     @FXML
     private Button startEnemyButton;
 
+    @FXML
+    private Button endOwnButton;
+
+    @FXML
+    private Button endEnemyButton;
+
 
     private List<Ship> ownShips;
     private List<Ship> enemyShips;
@@ -77,32 +83,104 @@ public class GameController {
         usernameLabel2.setText(userName2);
     }
 
-    private void clearOwnShips(){
-        for (Ship s : ownShips) {
-            int startX = s.getX() * 10 + s.getY();
-            for (int x = 0; x < s.getSize(); x++) {
-
-                int index = s.getDirection() == 1 ? startX + x : startX + (10 * x);
-                if (index >= 100)
-                    continue;
+    private void guessOwnShips(boolean clear) {
+        for (int i = 0 ; i < 10; i++) {
+            for (int j = 0 ; j < 10; j++) {
+                int index = i * 10 + j;
 
                 ImageView view = (ImageView) ownGrid.getChildren().get(index);
-                view.setImage(squares.get(Square.SQUARE0));
+
+                if (clear) {
+                    view.setImage(squares.get(Square.SQUARE0));
+                } else {
+                    if (miss.contains(index)) {
+                        view.setImage(squares.get(Square.SQUARE1));
+                    } else if (hit.contains(index)) {
+                        view.setImage(squares.get(Square.SQUARE3));
+                    }
+                }
+            }
+        }
+
+        if (!clear) {
+            for (Ship s : ownShips) {
+                boolean allDestroyed = true;
+                int shipindex = s.getX() * 10 + s.getY();
+                for (int i = 0; i < s.getSize(); i++) {
+                    int thisIndex = shipindex;
+                    if (s.getDirection() == 1) {
+                        thisIndex += i;
+                    } else {
+                        thisIndex += i * 10;
+                    }
+                    if (!hit.contains(thisIndex)) {
+                        allDestroyed = false;
+                        break;
+                    }
+                }
+                if (allDestroyed) {
+                    for (int i = 0; i < s.getSize(); i++) {
+                        int thisIndex = shipindex;
+                        if (s.getDirection() == 1) {
+                            thisIndex += i;
+                        } else {
+                            thisIndex += i * 10;
+                        }
+                        ImageView view2 = (ImageView) ownGrid.getChildren().get(thisIndex);
+                        view2.setImage(squares.get(Square.SQUARE4));
+                    }
+                }
             }
         }
     }
 
-    private void clearEnemyShips(){
-        for (Ship s : enemyShips) {
-            int startX = s.getX() * 10 + s.getY();
-            for (int x = 0; x < s.getSize(); x++) {
-
-                int index = s.getDirection() == 1 ? startX + x : startX + (10 * x);
-                if (index >= 100)
-                    continue;
+    private void guessEnemyShips(boolean clear) {
+        for (int i = 0 ; i < 10; i++) {
+            for (int j = 0 ; j < 10; j++) {
+                int index = i * 10 + j;
 
                 ImageView view = (ImageView) enemyGrid.getChildren().get(index);
-                view.setImage(squares.get(Square.SQUARE0));
+
+                if (clear) {
+                    view.setImage(squares.get(Square.SQUARE0));
+                } else {
+                    if (miss.contains(index)) {
+                        view.setImage(squares.get(Square.SQUARE1));
+                    } else if (hit.contains(index)) {
+                        view.setImage(squares.get(Square.SQUARE3));
+                    }
+                }
+            }
+        }
+
+        if (!clear) {
+            for (Ship s : enemyShips) {
+                boolean allDestroyed = true;
+                int shipindex = s.getX() * 10 + s.getY();
+                for (int i = 0; i < s.getSize(); i++) {
+                    int thisIndex = shipindex;
+                    if (s.getDirection() == 1) {
+                        thisIndex += i;
+                    } else {
+                        thisIndex += i * 10;
+                    }
+                    if (!hit.contains(thisIndex)) {
+                        allDestroyed = false;
+                        break;
+                    }
+                }
+                if (allDestroyed) {
+                    for (int i = 0; i < s.getSize(); i++) {
+                        int thisIndex = shipindex;
+                        if (s.getDirection() == 1) {
+                            thisIndex += i;
+                        } else {
+                            thisIndex += i * 10;
+                        }
+                        ImageView view2 = (ImageView) enemyGrid.getChildren().get(thisIndex);
+                        view2.setImage(squares.get(Square.SQUARE4));
+                    }
+                }
             }
         }
     }
@@ -183,7 +261,48 @@ public class GameController {
 
         int clickedColumn = GridPane.getColumnIndex((Node)mouseEvent.getSource());
         int clickedRow = GridPane.getRowIndex((Node)mouseEvent.getSource());
-        //log.info("own grid, (" + clickedRow + "," + clickedColumn + ")");
+
+        if(stage>=22 && !prepPhase){
+            if (stage % 2 == 1 || (!endEnemyButton.isDisable() && endEnemyButton.isVisible())) {
+                log.warn("NEM TE JÖSSZ TE FASSZOPÓ");
+                return;
+            }
+
+            endEnemyButton.setVisible(true);
+            endEnemyButton.setDisable(true);
+
+            Ship fire = new Ship(1, 1, clickedRow, clickedColumn);
+            int index = clickedRow * 10 + clickedColumn;
+            if (hit.contains(index) || miss.contains(index)) {
+                log.warn("You already hit that!");
+                return;
+            }
+
+            if (!isEmptySpace(ownShips, fire, false)) {
+                log.info("Hit!");
+                hit.add(index);
+                guessOwnShips(false);
+            } else{
+                log.info("Miss.");
+                miss.add(index);
+                System.out.println(miss);
+                ImageView view = (ImageView) ownGrid.getChildren().get(index);
+                view.setImage(squares.get(Square.SQUARE1));
+                endOwnButton.setDisable(false);
+                stage++;
+                log.info("Stage:{} ", stage);
+            }
+
+            int maxS = 0;
+            for (Ship s : ownShips) {
+                maxS += s.getSize();
+            }
+            if (maxS == hit.size()) {
+                log.info("You sank the ship!");
+            }
+            return;
+        }
+
         int size = 0;
         if(prepPhase) {
             if (stage == 0) {
@@ -201,21 +320,23 @@ public class GameController {
         }
 
         Ship ship = new Ship(size, horizontal.isDisable() ? 1 : 2, clickedRow, clickedColumn);
-        if (!isEmptySpace(ownShips, ship, true)) {
-            log.warn("Ship in line!!");
-            return;
-        }
-        ownShips.add(ship);
-        drawOwnShips();
-        stage++;
-        log.info("Stage: " + stage);
 
-        if (stage == 10){
-            endPlacementButton.setDisable(false);
+        if (prepPhase) {
+            if (!isEmptySpace(ownShips, ship, true)) {
+                log.warn("Ship in line!!");
+                return;
+            }
+
+            ownShips.add(ship);
+            drawOwnShips();
+            stage++;
+            log.info("Stage: " + stage);
+            if (stage == 10) {
+                endPlacementButton.setDisable(false);
+            }
+
         }
     }
-
-
 
     public void squareClickEnemy(MouseEvent mouseEvent) {
 
@@ -223,7 +344,13 @@ public class GameController {
         int clickedRow = GridPane.getRowIndex((Node)mouseEvent.getSource());
 
         if(stage>=22 && !prepPhase){
+            if (stage % 2 == 0 || (!endOwnButton.isDisable() && endOwnButton.isVisible())) {
+                log.warn("NEM TE JÖSSZ TE FASSZOPÓ");
+                return;
+            }
 
+            endOwnButton.setVisible(true);
+            endOwnButton.setDisable(true);
 
             Ship fire = new Ship(1, 1, clickedRow, clickedColumn);
             int index = clickedRow * 10 + clickedColumn;
@@ -235,47 +362,15 @@ public class GameController {
             if (!isEmptySpace(enemyShips, fire, false)) {
                 log.info("Hit!");
                 hit.add(index);
-                System.out.println(hit);
-                ImageView view = (ImageView) enemyGrid.getChildren().get(index);
-                view.setImage(squares.get(Square.SQUARE3));
-
-                for (Ship s : enemyShips) {
-                    if (s.inShip(fire,false)) {
-                        boolean allDestroyed = true;
-                        int shipindex = s.getX() * 10 + s.getY();
-                        for (int i = 0; i < s.getSize(); i++) {
-                            int thisIndex = shipindex;
-                            if (s.getDirection() == 1) {
-                                thisIndex += i;
-                            } else {
-                                thisIndex += i * 10;
-                            }
-                            if (!hit.contains(thisIndex)) {
-                                allDestroyed = false;
-                                break;
-                            }
-                        }
-                        if (allDestroyed) {
-                            for (int i = 0; i < s.getSize(); i++) {
-                                int thisIndex = shipindex;
-                                if (s.getDirection() == 1) {
-                                    thisIndex += i;
-                                } else {
-                                    thisIndex += i * 10;
-                                }
-                                ImageView view2 = (ImageView) enemyGrid.getChildren().get(thisIndex);
-                                view2.setImage(squares.get(Square.SQUARE4));
-                            }
-                        }
-                    }
-                }
-
+                guessEnemyShips(false);
             } else{
                 log.info("Miss.");
                 miss.add(index);
                 System.out.println(miss);
                 ImageView view = (ImageView) enemyGrid.getChildren().get(index);
                 view.setImage(squares.get(Square.SQUARE1));
+                endOwnButton.setDisable(false);
+                log.info("Stage:{} ", stage);
             }
 
             int maxS = 0;
@@ -329,17 +424,37 @@ public class GameController {
     }
 
     public void startOwn(){
-        clearEnemyShips();
+        drawOwnShips();
+        guessOwnShips(false);
+        guessEnemyShips(true);
+        guessEnemyShips(false);
         ownGrid.setVisible(true);
         enemyGrid.setVisible(true);
         startOwnButton.setVisible(false);
+        stage++;
     }
 
     public void startEnemy(){
-        clearEnemyShips();
+        drawEnemyShips();
+        guessEnemyShips(false);
+        guessOwnShips(true);
+        guessOwnShips(false);
         enemyGrid.setVisible(true);
         ownGrid.setVisible(true);
         startEnemyButton.setVisible(false);
+        stage++;
+    }
+
+    public void endOwn(){
+        startEnemyButton.setVisible(true);
+        guessOwnShips(true);
+        endOwnButton.setVisible(false);
+    }
+
+    public void endEnemy(){
+        startOwnButton.setVisible(true);
+        guessEnemyShips(true);
+        endEnemyButton.setVisible(false);
     }
 
     public void horizontalRelease() {

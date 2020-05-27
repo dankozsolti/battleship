@@ -39,7 +39,6 @@ public class LaunchController {
             stage.show();
             log.info("Username is set to {} and {}, loading game scene.", username1Textfield.getText(), username2Textfield.getText());
         }
-
     }
 }
 
