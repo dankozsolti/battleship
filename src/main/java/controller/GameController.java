@@ -58,16 +58,20 @@ public class GameController {
     private List<Ship> ownShips;
     private List<Ship> enemyShips;
     private HashMap<Square, Image> squares;
-    private List<Integer> hit;
-    private List<Integer> miss;
+    private List<Integer> enemyhit;
+    private List<Integer> enemymiss;
+    private List<Integer> ownhit;
+    private List<Integer> ownmiss;
 
     @FXML
     public void initialize() {
         ownShips = new ArrayList<Ship>();
         enemyShips = new ArrayList<Ship>();
         squares = new HashMap<Square, Image>();
-        hit = new ArrayList<Integer>();
-        miss = new ArrayList<Integer>();
+        ownhit = new ArrayList<Integer>();
+        ownmiss = new ArrayList<Integer>();
+        enemyhit = new ArrayList<Integer>();
+        enemymiss = new ArrayList<Integer>();
 
         squares.put(Square.SQUARE0, new Image(this.getClass().getResource("/img/square0.png").toExternalForm()));
         squares.put(Square.SQUARE1, new Image(this.getClass().getResource("/img/square1.png").toExternalForm()));
@@ -93,9 +97,9 @@ public class GameController {
                 if (clear) {
                     view.setImage(squares.get(Square.SQUARE0));
                 } else {
-                    if (miss.contains(index)) {
+                    if (ownmiss.contains(index)) {
                         view.setImage(squares.get(Square.SQUARE1));
-                    } else if (hit.contains(index)) {
+                    } else if (ownhit.contains(index)) {
                         view.setImage(squares.get(Square.SQUARE3));
                     }
                 }
@@ -113,7 +117,7 @@ public class GameController {
                     } else {
                         thisIndex += i * 10;
                     }
-                    if (!hit.contains(thisIndex)) {
+                    if (!ownhit.contains(thisIndex)) {
                         allDestroyed = false;
                         break;
                     }
@@ -144,9 +148,9 @@ public class GameController {
                 if (clear) {
                     view.setImage(squares.get(Square.SQUARE0));
                 } else {
-                    if (miss.contains(index)) {
+                    if (enemymiss.contains(index)) {
                         view.setImage(squares.get(Square.SQUARE1));
-                    } else if (hit.contains(index)) {
+                    } else if (enemyhit.contains(index)) {
                         view.setImage(squares.get(Square.SQUARE3));
                     }
                 }
@@ -164,7 +168,7 @@ public class GameController {
                     } else {
                         thisIndex += i * 10;
                     }
-                    if (!hit.contains(thisIndex)) {
+                    if (!enemyhit.contains(thisIndex)) {
                         allDestroyed = false;
                         break;
                     }
@@ -273,22 +277,22 @@ public class GameController {
 
             Ship fire = new Ship(1, 1, clickedRow, clickedColumn);
             int index = clickedRow * 10 + clickedColumn;
-            if (hit.contains(index) || miss.contains(index)) {
+            if (ownhit.contains(index) || ownmiss.contains(index)) {
                 log.warn("You already hit that!");
                 return;
             }
 
             if (!isEmptySpace(ownShips, fire, false)) {
                 log.info("Hit!");
-                hit.add(index);
+                ownhit.add(index);
                 guessOwnShips(false);
             } else{
                 log.info("Miss.");
-                miss.add(index);
-                System.out.println(miss);
+                ownmiss.add(index);
+                System.out.println(ownmiss);
                 ImageView view = (ImageView) ownGrid.getChildren().get(index);
                 view.setImage(squares.get(Square.SQUARE1));
-                endOwnButton.setDisable(false);
+                endEnemyButton.setDisable(false);
                 stage++;
                 log.info("Stage:{} ", stage);
             }
@@ -297,7 +301,7 @@ public class GameController {
             for (Ship s : ownShips) {
                 maxS += s.getSize();
             }
-            if (maxS == hit.size()) {
+            if (maxS == ownhit.size()) {
                 log.info("You sank the ship!");
             }
             return;
@@ -354,19 +358,19 @@ public class GameController {
 
             Ship fire = new Ship(1, 1, clickedRow, clickedColumn);
             int index = clickedRow * 10 + clickedColumn;
-            if (hit.contains(index) || miss.contains(index)) {
+            if (enemyhit.contains(index) || enemymiss.contains(index)) {
                 log.warn("You already hit that!");
                 return;
             }
 
             if (!isEmptySpace(enemyShips, fire, false)) {
                 log.info("Hit!");
-                hit.add(index);
+                enemyhit.add(index);
                 guessEnemyShips(false);
             } else{
                 log.info("Miss.");
-                miss.add(index);
-                System.out.println(miss);
+                enemymiss.add(index);
+                System.out.println(enemymiss);
                 ImageView view = (ImageView) enemyGrid.getChildren().get(index);
                 view.setImage(squares.get(Square.SQUARE1));
                 endOwnButton.setDisable(false);
@@ -377,7 +381,7 @@ public class GameController {
             for (Ship s : enemyShips) {
                 maxS += s.getSize();
             }
-            if (maxS == hit.size()) {
+            if (maxS == enemyhit.size()) {
                 log.info("You sank the ship!");
             }
             return;
@@ -449,12 +453,16 @@ public class GameController {
         startEnemyButton.setVisible(true);
         guessOwnShips(true);
         endOwnButton.setVisible(false);
+        ownGrid.setVisible(false);
+        enemyGrid.setVisible(false);
     }
 
     public void endEnemy(){
         startOwnButton.setVisible(true);
         guessEnemyShips(true);
         endEnemyButton.setVisible(false);
+        enemyGrid.setVisible(false);
+        ownGrid.setVisible(false);
     }
 
     public void horizontalRelease() {
