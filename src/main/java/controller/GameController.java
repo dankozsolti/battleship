@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Slf4j
 public class GameController {
@@ -293,8 +292,6 @@ public class GameController {
                 ImageView view = (ImageView) ownGrid.getChildren().get(index);
                 view.setImage(squares.get(Square.SQUARE1));
                 endEnemyButton.setDisable(false);
-                stage++;
-                log.info("Stage:{} ", stage);
             }
 
             int maxS = 0;
@@ -302,7 +299,7 @@ public class GameController {
                 maxS += s.getSize();
             }
             if (maxS == ownhit.size()) {
-                log.info("You sank the ship!");
+                log.info("{} WON!",usernameLabel2.getText());
             }
             return;
         }
@@ -374,7 +371,6 @@ public class GameController {
                 ImageView view = (ImageView) enemyGrid.getChildren().get(index);
                 view.setImage(squares.get(Square.SQUARE1));
                 endOwnButton.setDisable(false);
-                log.info("Stage:{} ", stage);
             }
 
             int maxS = 0;
@@ -382,7 +378,7 @@ public class GameController {
                 maxS += s.getSize();
             }
             if (maxS == enemyhit.size()) {
-                log.info("You sank the ship!");
+                log.info("{} WON!",usernameLabel1.getText());
             }
             return;
         }
@@ -436,6 +432,7 @@ public class GameController {
         enemyGrid.setVisible(true);
         startOwnButton.setVisible(false);
         stage++;
+        log.info("Stage: {}",stage);
     }
 
     public void startEnemy(){
@@ -447,6 +444,7 @@ public class GameController {
         ownGrid.setVisible(true);
         startEnemyButton.setVisible(false);
         stage++;
+        log.info("Stage: {}",stage);
     }
 
     public void endOwn(){

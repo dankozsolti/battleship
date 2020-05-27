@@ -155,16 +155,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="49.0" layoutY="439.0" prefHeight="16.0" prefWidth="73.0" text="Steps:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="stepLabel" layoutX="118.0" layoutY="439.0" text="0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <Label alignment="CENTER" layoutX="86.0" layoutY="123.0" prefHeight="25.0" prefWidth="25.0" text="1">
          <font>
             <Font size="15.0" />
