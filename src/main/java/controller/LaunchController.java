@@ -30,6 +30,8 @@ public class LaunchController {
             errorLabel.setText("* Username1 is empty!");
         } else if(username2Textfield.getText().isEmpty()) {
             errorLabel.setText("* Username2 is empty!");
+        } else if(username1Textfield.getText().equalsIgnoreCase(username2Textfield.getText())){
+            errorLabel.setText("* Usernames must not match!");
         } else {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/game.fxml"));
             Parent root = fxmlLoader.load();
@@ -37,7 +39,7 @@ public class LaunchController {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-            log.info("Username is set to {} and {}, loading game scene.", username1Textfield.getText(), username2Textfield.getText());
+            log.info("Usernames set to {} and {}, loading game scene.", username1Textfield.getText(), username2Textfield.getText());
         }
     }
 }

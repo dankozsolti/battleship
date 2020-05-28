@@ -16,7 +16,7 @@
       <TextField fx:id="username1Textfield" layoutX="91.0" layoutY="234.0" prefHeight="26.0" prefWidth="158.0" />
       <TextField fx:id="username2Textfield" layoutX="354.0" layoutY="234.0" prefHeight="26.0" prefWidth="158.0" />
       <Button fx:id="startButton" layoutX="249.0" layoutY="287.0" mnemonicParsing="false" onAction="#startAction" prefHeight="51.0" prefWidth="105.0" text="Start game" />
-      <Label fx:id="errorLabel" layoutX="195.0" layoutY="345.0" prefHeight="41.0" prefWidth="210.0" textFill="#e30e0e">
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="131.0" layoutY="345.0" prefHeight="41.0" prefWidth="344.0" textFill="#e30e0e">
          <font>
             <Font size="20.0" />
          </font></Label>
