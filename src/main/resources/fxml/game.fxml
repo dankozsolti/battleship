@@ -511,5 +511,6 @@
             <Font size="25.0" />
          </font>
       </Label>
+      <Button fx:id="doneButton" layoutX="360.0" layoutY="442.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="81.0" text="Continue" visible="false" />
    </children>
 </Pane>

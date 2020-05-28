@@ -3,11 +3,17 @@ package controller;
 import battleship.GridManager;
 import battleship.Ship;
 import battleship.Square;
+import battleship.results.GameResults;
+import battleship.results.GameResultsDao;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -15,9 +21,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 
+import java.io.IOException;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -63,12 +72,19 @@ public class GameController {
     @FXML
     private Button endEnemyButton;
 
+    @FXML
+    private Button doneButton;
+
     private Instant startTime;
     private Timeline stopWatchTimeline;
     private GridManager gridManager;
+    private GameResultsDao gameResultDao;
+    private Instant beginGame;
+    private boolean hasFinished;
 
     @FXML
     public void initialize() {
+        gameResultDao = GameResultsDao.getInstance();
         gridManager = new GridManager();
 
         vertical.setDisable(true);
@@ -233,14 +249,14 @@ public class GameController {
                 gridManager.guessEnemyShips(enemyGrid,false);
             } else{
                 log.info("Miss.");
-                gridManager.addEnemyHit(index);
+                gridManager.addEnemyMiss(index);
                 ImageView view = (ImageView) enemyGrid.getChildren().get(index);
                 view.setImage(Square.image(Square.SQUARE1));
                 endOwnButton.setDisable(false);
             }
-
             if (gridManager.isSolveEnemy()) {
-                log.info("{} WON!",usernameLabel1.getText());
+                log.info("{} WON!", usernameLabel1.getText());
+                
             }
             return;
         }
@@ -344,5 +360,36 @@ public class GameController {
         }), new KeyFrame(javafx.util.Duration.seconds(1)));
         stopWatchTimeline.setCycleCount(Animation.INDEFINITE);
         stopWatchTimeline.play();
+    }
+
+    private void showFinish(){
+
+        if (gridManager.isSolveEnemy()) {
+            log.info("{} WON!",usernameLabel1.getText());
+        }else if(gridManager.isSolveOwn()){
+            log.info("{} WON!",usernameLabel2.getText());
+        }
+    }
+
+    private GameResults getResult() {
+        GameResults result = GameResults.builder()
+                .player(usernameLabel1.getText())
+                .otherPlayer(usernameLabel2.getText())
+                .winnerPlayer(Winner)
+                .solved(hasFinished)
+                .duration(Duration.between(beginGame, Instant.now()))
+                .misses(missCount)
+                .build();
+        return result;
+    }
+
+    public void finishGame(ActionEvent actionEvent) throws IOException {
+        gameResultDao.persist(getResult());
+
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/topten.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+        log.info("Finished game, loading Top Ten scene.");
     }
 }

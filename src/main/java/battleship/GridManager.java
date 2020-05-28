@@ -38,20 +38,15 @@ public class GridManager {
         for (int i = 0 ; i < 10; i++) {
             for (int j = 0 ; j < 10; j++) {
                 int index = i * 10 + j;
-                ImageView view = null;
-                if (ownGrid != null)
-                    view = (ImageView) ownGrid.getChildren().get(index);
+                ImageView view = (ImageView) ownGrid.getChildren().get(index);
 
                 if (clear) {
-                    if (view != null)
-                        view.setImage(Square.image(Square.SQUARE0));
+                    view.setImage(Square.image(Square.SQUARE0));
                 } else {
                     if (ownmiss.contains(index)) {
-                        if (view != null)
-                            view.setImage(Square.image(Square.SQUARE1));
+                        view.setImage(Square.image(Square.SQUARE1));
                     } else if (ownhit.contains(index)) {
-                        if (view != null)
-                            view.setImage(Square.image(Square.SQUARE3));
+                        view.setImage(Square.image(Square.SQUARE3));
                     }
                 }
             }
@@ -81,7 +76,6 @@ public class GridManager {
                         } else {
                             thisIndex += i * 10;
                         }
-                        assert ownGrid != null;
                         ImageView view2 = (ImageView) ownGrid.getChildren().get(thisIndex);
                         view2.setImage(Square.image(Square.SQUARE4));
                     }
@@ -94,20 +88,15 @@ public class GridManager {
         for (int i = 0 ; i < 10; i++) {
             for (int j = 0 ; j < 10; j++) {
                 int index = i * 10 + j;
-                ImageView view = null;
-                if (enemyGrid != null)
-                    view = (ImageView) enemyGrid.getChildren().get(index);
+                ImageView view = (ImageView) enemyGrid.getChildren().get(index);
 
                 if (clear) {
-                    if (view != null)
-                        view.setImage(Square.image(Square.SQUARE0));
+                    view.setImage(Square.image(Square.SQUARE0));
                 } else {
                     if (enemymiss.contains(index)) {
-                        if (view != null)
-                            view.setImage(Square.image(Square.SQUARE1));
+                        view.setImage(Square.image(Square.SQUARE1));
                     } else if (enemyhit.contains(index)) {
-                        if (view != null)
-                            view.setImage(Square.image(Square.SQUARE3));
+                        view.setImage(Square.image(Square.SQUARE3));
                     }
                 }
             }
@@ -137,7 +126,6 @@ public class GridManager {
                         } else {
                             thisIndex += i * 10;
                         }
-                        assert enemyGrid != null;
                         ImageView view2 = (ImageView) enemyGrid.getChildren().get(thisIndex);
                         view2.setImage(Square.image(Square.SQUARE4));
                     }

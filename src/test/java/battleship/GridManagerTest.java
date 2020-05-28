@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GridManagerTest {
+
     @Test
     void testIsHitOwn() {
         GridManager gridManager = new GridManager();
@@ -37,9 +38,6 @@ public class GridManagerTest {
 
         GridManager gridManager = new GridManager();
 
-        gridManager.guessOwnShips(null, true);
-        gridManager.guessOwnShips(null, false);
-
         gridManager.addEnemyHit(3);
         gridManager.addEnemyMiss(4);
         GridPane enemyGrid = new GridPane();
@@ -56,6 +54,14 @@ public class GridManagerTest {
         first.setImage(Square.image(Square.SQUARE1));
         gridManager.guessEnemyShips(enemyGrid, false);
         assertEquals(Square.image(Square.SQUARE1), first.getImage());
+
+        gridManager.getEnemyShips().add(new Ship(1,2, 0, 0));
+        gridManager.guessEnemyShips(enemyGrid,false);
+        assertEquals(Square.image(Square.SQUARE1), first.getImage());
+
+        gridManager.addEnemyHit(0);
+        gridManager.guessEnemyShips(enemyGrid,false);
+        assertEquals(Square.image(Square.SQUARE4), first.getImage());
     }
 
     @Test
@@ -63,9 +69,6 @@ public class GridManagerTest {
         PlatformImpl.startup(() -> {});
 
         GridManager gridManager = new GridManager();
-
-        gridManager.guessEnemyShips(null, true);
-        gridManager.guessEnemyShips(null, false);
 
         gridManager.addOwnHit(3);
         gridManager.addOwnMiss(4);
@@ -77,11 +80,58 @@ public class GridManagerTest {
         first.setImage(Square.image(Square.SQUARE1));
 
         assertEquals(Square.image(Square.SQUARE1), first.getImage());
-        gridManager.guessEnemyShips(ownGrid, true);
+        gridManager.guessOwnShips(ownGrid, true);
         assertEquals(Square.image(Square.SQUARE0), first.getImage());
 
         first.setImage(Square.image(Square.SQUARE1));
-        gridManager.guessEnemyShips(ownGrid, false);
+        gridManager.guessOwnShips(ownGrid, false);
         assertEquals(Square.image(Square.SQUARE1), first.getImage());
+
+        gridManager.getOwnShips().add(new Ship(1,2, 0, 0));
+        gridManager.guessOwnShips(ownGrid,false);
+        assertEquals(Square.image(Square.SQUARE1), first.getImage());
+
+        gridManager.addOwnHit(0);
+        gridManager.guessOwnShips(ownGrid,false);
+        assertEquals(Square.image(Square.SQUARE4), first.getImage());
+    }
+
+    @Test
+    void testisEmptySpace(){
+        GridManager gridManager = new GridManager();
+
+        Ship first = new Ship(1,2, 0, 0);
+        assertTrue(gridManager.isEmptySpace(gridManager.getOwnShips(), first, false, true));
+        assertTrue(gridManager.isEmptySpace(gridManager.getOwnShips(), first, false, false));
+        assertTrue(gridManager.isEmptySpace(gridManager.getOwnShips(), first, true, true));
+
+        gridManager.getOwnShips().add(first);
+        assertFalse(gridManager.isEmptySpace(gridManager.getOwnShips(), first, false, true));
+        assertFalse(gridManager.isEmptySpace(gridManager.getOwnShips(), first, false, false));
+        assertFalse(gridManager.isEmptySpace(gridManager.getOwnShips(), first, true, true));
+    }
+
+    @Test
+    void testIsSolveOwn() {
+        GridManager gridManager = new GridManager();
+
+        Ship first = new Ship(1,2, 0, 0);
+        gridManager.getOwnShips().add(first);
+
+        assertFalse(gridManager.isSolveOwn());
+        gridManager.addOwnHit(0);
+        assertTrue(gridManager.isSolveOwn());
+    }
+
+    @Test
+    void testIsSolveEnemy() {
+        GridManager gridManager = new GridManager();
+
+        Ship first = new Ship(1,2, 0, 0);
+        gridManager.getEnemyShips().add(first);
+
+        assertFalse(gridManager.isSolveEnemy());
+        gridManager.addEnemyHit(0);
+        assertTrue(gridManager.isSolveEnemy());
     }
 }
