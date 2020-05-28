@@ -8,6 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -135,5 +138,13 @@ public class GridManagerTest {
         assertFalse(gridManager.isSolveEnemy());
         gridManager.addEnemyHit(0);
         assertTrue(gridManager.isSolveEnemy());
+    }
+
+    @Test
+    void testGetMisses(){
+        GridManager gridManager = new GridManager();
+        assertEquals(0, gridManager.getMisses());
+        gridManager.addEnemyMiss(1);
+        assertEquals(1, gridManager.getMisses());
     }
 }

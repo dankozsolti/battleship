@@ -280,6 +280,6 @@ public class GridManager {
         } else if(isSolveOwn()){
             return ownmiss.size();
         }
-        return getMisses();
+        return 0;
     }
 }
