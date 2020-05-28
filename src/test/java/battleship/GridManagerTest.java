@@ -1,7 +1,9 @@
 package battleship;
 
+import battleship.state.GridManager;
+import battleship.state.Ship;
+import battleship.state.Square;
 import com.sun.javafx.application.PlatformImpl;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.junit.jupiter.api.Test;

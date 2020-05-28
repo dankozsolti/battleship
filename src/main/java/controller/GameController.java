@@ -1,8 +1,8 @@
 package controller;
 
-import battleship.GridManager;
-import battleship.Ship;
-import battleship.Square;
+import battleship.state.GridManager;
+import battleship.state.Ship;
+import battleship.state.Square;
 import battleship.results.GameResults;
 import battleship.results.GameResultsDao;
 import javafx.animation.Animation;
@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -29,9 +28,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @Slf4j
 public class GameController {
@@ -73,6 +69,9 @@ public class GameController {
     private Button endEnemyButton;
 
     @FXML
+    private Label finishLabel;
+
+    @FXML
     private Button doneButton;
 
     private Instant startTime;
@@ -81,6 +80,8 @@ public class GameController {
     private GameResultsDao gameResultDao;
     private Instant beginGame;
     private boolean hasFinished;
+    private String WinnerName;
+    private int misses;
 
     @FXML
     public void initialize() {
@@ -90,6 +91,7 @@ public class GameController {
         vertical.setDisable(true);
         startTime = Instant.now();
         createStopWatch();
+        beginGame = Instant.now();
     }
 
     public void initdata(String userName1, String userName2) {
@@ -183,6 +185,11 @@ public class GameController {
 
             if (gridManager.isSolveOwn()) {
                 log.info("{} WON!",usernameLabel2.getText());
+                finishLabel.setText(usernameLabel2.getText() + " WON!");
+                ownGrid.setDisable(true);
+                WinnerName = usernameLabel2.getText();
+                hasFinished = true;
+                doneButton.setVisible(true);
             }
 
             return;
@@ -256,7 +263,11 @@ public class GameController {
             }
             if (gridManager.isSolveEnemy()) {
                 log.info("{} WON!", usernameLabel1.getText());
-                
+                finishLabel.setText(usernameLabel1.getText() + " WON!");
+                enemyGrid.setDisable(true);
+                WinnerName = usernameLabel1.getText();
+                hasFinished = true;
+                doneButton.setVisible(true);
             }
             return;
         }
@@ -281,7 +292,6 @@ public class GameController {
             }
         }
 
-        //log.info("enemy grid, (" + clickedRow + "," + clickedColumn + ")");
         Ship ship = new Ship(size, horizontal.isDisable() ? 1 : 2, clickedRow, clickedColumn);
 
         if (prepPhase) {
@@ -362,23 +372,14 @@ public class GameController {
         stopWatchTimeline.play();
     }
 
-    private void showFinish(){
-
-        if (gridManager.isSolveEnemy()) {
-            log.info("{} WON!",usernameLabel1.getText());
-        }else if(gridManager.isSolveOwn()){
-            log.info("{} WON!",usernameLabel2.getText());
-        }
-    }
-
     private GameResults getResult() {
         GameResults result = GameResults.builder()
                 .player(usernameLabel1.getText())
                 .otherPlayer(usernameLabel2.getText())
-                .winnerPlayer(Winner)
+                .winnerPlayer(WinnerName)
                 .solved(hasFinished)
                 .duration(Duration.between(beginGame, Instant.now()))
-                .misses(missCount)
+                .misses(gridManager.getMisses())
                 .build();
         return result;
     }

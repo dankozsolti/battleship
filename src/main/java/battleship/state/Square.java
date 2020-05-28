@@ -1,7 +1,6 @@
-package battleship;
+package battleship.state;
 
 import javafx.scene.image.Image;
-import lombok.Getter;
 
 import java.util.HashMap;
 

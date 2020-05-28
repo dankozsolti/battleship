@@ -1,13 +1,11 @@
-package battleship;
+package battleship.state;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -206,5 +204,14 @@ public class GridManager {
             maxS += s.getSize();
 
         return maxS == enemyhit.size();
+    }
+
+    public int getMisses() {
+        if(isSolveEnemy()){
+            return enemymiss.size();
+        } else if(isSolveOwn()){
+            return ownmiss.size();
+        }
+        return getMisses();
     }
 }

@@ -511,6 +511,11 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="doneButton" layoutX="360.0" layoutY="442.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="81.0" text="Continue" visible="false" />
+      <Button fx:id="doneButton" layoutX="516.0" layoutY="442.0" mnemonicParsing="false" onAction="#finishGame" prefHeight="44.0" prefWidth="81.0" text="Continue" visible="false" />
+      <Label fx:id="finishLabel" alignment="CENTER" layoutX="287.0" layoutY="442.0" prefHeight="44.0" prefWidth="226.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
