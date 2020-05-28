@@ -3,16 +3,38 @@ package battleship.state;
 import javafx.scene.image.Image;
 
 import java.util.HashMap;
-
+/**
+ * Direction variables.
+ */
 public enum Square {
+    /**
+     * Empty square.
+     */
     SQUARE0,
+    /**
+     * Empty square, missed while guessing
+     */
     SQUARE1,
+    /**
+     * Ship square
+     */
     SQUARE2,
+    /**
+     * Ship square, hit while guessing
+     */
     SQUARE3,
+    /**
+     * Fully hit ship
+     */
     SQUARE4;
 
     private static HashMap<Square, Image> squares = new HashMap<Square, Image>();
 
+    /**
+     * Puts the image to its proper square.
+     * @param sq the square to put the image.
+     * @return the squares.
+     */
     public static Image image(Square sq) {
         if (squares.isEmpty()) {
             squares.put(Square.SQUARE0, new Image(Square.class.getResource("/img/square0.png").toExternalForm()));

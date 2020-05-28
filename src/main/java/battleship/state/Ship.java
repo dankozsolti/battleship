@@ -2,6 +2,10 @@ package battleship.state;
 
 import lombok.*;
 
+/**
+ * Class for the core Ship class.
+ */
+
 @Data
 @AllArgsConstructor
 public class Ship {
@@ -12,18 +16,36 @@ public class Ship {
     private int x;
     private int y;
 
+    /**
+     * Gets the height of the ship.
+     * @param isSpace decides whether we need the space between ships(while placing)
+     *                or not(while guessing).
+     * @return the height of the ship
+     */
     private int getHeight(boolean isSpace) {
         if (this.direction == 1)
             return this.size + (isSpace ? 1 : 0);
         return 1 + (isSpace ? 1 : 0);
     }
 
+    /**
+     * Gets the width of the ship.
+     * @param isSpace decides whether we need the space between ships(while placing)
+     *                or not(while guessing).
+     * @return the height of the ship
+     */
     private int getWidth(boolean isSpace) {
         if (this.direction == 1)
             return 1 + (isSpace ? 1 : 0);
         return this.size + (isSpace ? 1 : 0);
     }
 
+    /**
+     * Checks whether another ship is overlapping.
+     * @param other the other ship.
+     * @param isSpace includes/excludes spacing between ships.
+     * @return true or false, depending on the overlapping.
+     */
     public boolean inShip(Ship other, boolean isSpace) {
         float xmin = Math.max(this.x, other.x);
         float xmax1 = this.x + this.getWidth(isSpace);

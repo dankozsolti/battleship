@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The core of the game, responsible for managing the grids themselves
+ */
 @Slf4j
 public class GridManager {
     @Getter
@@ -20,8 +23,6 @@ public class GridManager {
     private List<Integer> ownhit;
     private List<Integer> ownmiss;
 
-
-
     public GridManager() {
         ownShips = new ArrayList<Ship>();
         enemyShips = new ArrayList<Ship>();
@@ -32,6 +33,11 @@ public class GridManager {
         enemymiss = new ArrayList<Integer>();
     }
 
+    /**
+     * Clears the board, or places a guess.
+     * @param ownGrid The first player's grid.
+     * @param clear clears the board if true, places guess if false.
+     */
     public void guessOwnShips(GridPane ownGrid, boolean clear) {
         for (int i = 0 ; i < 10; i++) {
             for (int j = 0 ; j < 10; j++) {
@@ -82,6 +88,11 @@ public class GridManager {
         }
     }
 
+    /**
+     * Clears the board, or places a guess.
+     * @param enemyGrid The second player's grid.
+     * @param clear clears the board if true, places guess if false.
+     */
     public void guessEnemyShips(GridPane enemyGrid, boolean clear) {
         for (int i = 0 ; i < 10; i++) {
             for (int j = 0 ; j < 10; j++) {
@@ -116,6 +127,7 @@ public class GridManager {
                         break;
                     }
                 }
+
                 if (allDestroyed) {
                     for (int i = 0; i < s.getSize(); i++) {
                         int thisIndex = shipindex;
@@ -132,6 +144,14 @@ public class GridManager {
         }
     }
 
+    /**
+     * Checks whether the square is an empty space.
+     * @param ships The ship list.
+     * @param ship The ship to check.
+     * @param vertical the direction of the ship.
+     * @param isSpace the spacing.
+     * @return whether the square is an empty space or not.
+     */
     public boolean isEmptySpace(List<Ship> ships, Ship ship, boolean vertical, boolean isSpace) {
         if (vertical) {
             if (10 - ship.getY() < ship.getSize()) {
@@ -152,42 +172,82 @@ public class GridManager {
         return true;
     }
 
+    /**
+     * Checks whether the shot is hit.
+     * @param index the index of the square.
+     * @return the shot.
+     */
     public boolean isHitOwn(int index) {
         return ownhit.contains(index);
     }
 
+    /**
+     * Adds the own hit to the list.
+     * @param index the index of the square.
+     */
     public void addOwnHit(int index) {
         if (!isHitOwn(index))
             ownhit.add(index);
     }
 
+    /**
+     * Checks whether the shot is missed.
+     * @param index the index of the square.
+     * @return the shot.
+     */
     public boolean isMissOwn(int index) {
         return ownmiss.contains(index);
     }
 
+    /**
+     * Adds the own miss to the list.
+     * @param index the index of the square.
+     */
     public void addOwnMiss(int index) {
         if (!isMissOwn(index))
             ownmiss.add(index);
     }
 
+    /**
+     * Checks whether the shot is hit.
+     * @param index the index of the square.
+     * @return the shot.
+     */
     public boolean isHitEnemy(int index) {
         return enemyhit.contains(index);
     }
 
+    /**
+     * Adds the enemy hit to the list.
+     * @param index the index of the square.
+     */
     public void addEnemyHit(int index) {
         if (!isHitEnemy(index))
             enemyhit.add(index);
     }
 
+    /**
+     * Checks whether the shot is missed.
+     * @param index the index of the square.
+     * @return the shot.
+     */
     public boolean isMissEnemy(int index) {
         return enemymiss.contains(index);
     }
 
+    /**
+     * Adds the enemy miss to the list.
+     * @param index the index of the square.
+     */
     public void addEnemyMiss(int index) {
         if (!isMissEnemy(index))
             enemymiss.add(index);
     }
 
+    /**
+     * Returns whether the own board is solved.
+     * @return whether the own board is solved.
+     */
     public boolean isSolveOwn() {
         int maxS = 0;
 
@@ -197,6 +257,10 @@ public class GridManager {
         return maxS == ownhit.size();
     }
 
+    /**
+     * Returns whether the enemy board is solved.
+     * @return whether the enemy board is solved.
+     */
     public boolean isSolveEnemy() {
         int maxS = 0;
 
@@ -206,6 +270,10 @@ public class GridManager {
         return maxS == enemyhit.size();
     }
 
+    /**
+     * Returns the winning player's miss count.
+     * @return the winning player's miss count.
+     */
     public int getMisses() {
         if(isSolveEnemy()){
             return enemymiss.size();
